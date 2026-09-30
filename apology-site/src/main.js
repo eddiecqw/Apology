@@ -34,35 +34,67 @@ startBtn.addEventListener('click', () => {
 
 // 【第二步】生成彈窗
 function startWindowSpam() {
-  // 先在中間生成一個主視窗
-  createOSWindow("系統警告", "檢測到女友正在生氣，正在嘗試修復關係...", 50, 50, true);
-
-  let popupCount = 0;
+  // 1. 手動建立帶有「加載進度條」的主視窗
+  const mainWindow = document.createElement('div');
+  mainWindow.className = 'os-window';
+  mainWindow.style.left = '50%';
+  mainWindow.style.top = '50%';
+  mainWindow.style.transform = 'translate(-50%, -50%)';
   
-  // 每 150 毫秒生成一個新視窗
-  const spamInterval = setInterval(() => {
-    // 當彈窗數量達到 35 個時停止
-    if (popupCount > 35) {
-      clearInterval(spamInterval);
+  mainWindow.innerHTML = `
+    <div class="os-header">
+      <span>⚠️ 系統修復程式.exe</span>
+      <span style="cursor:pointer">✕</span>
+    </div>
+    <div class="os-body">
+      <p id="statusText">檢測到女友正在生氣，正在嘗試修復關係...</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="repairProgress"></div>
+      </div>
+    </div>
+  `;
+  windowContainer.appendChild(mainWindow);
+
+  // 2. 啟動 2 秒鐘的加載動畫 
+  // (用 setTimeout 延遲 50ms 是為了確保畫面渲染後再觸發 CSS 的 transition 動畫)
+  setTimeout(() => {
+    document.getElementById('repairProgress').style.width = '100%';
+  }, 50);
+
+  // 3. 等待 2 秒鐘 (加載結束後)
+  setTimeout(() => {
+    // 戲劇效果：進度條跑完後，顯示修復失敗！
+    document.getElementById('statusText').innerText = "❌ 警告！修復失敗！系統即將崩潰！";
+    document.getElementById('statusText').style.color = "#ff4757";
+    document.getElementById('statusText').style.fontWeight = "bold";
+    document.getElementById('repairProgress').style.background = "#ff4757"; // 進度條變紅色
+
+    // 停頓 0.8 秒讓她看清楚字，然後開始瘋狂彈窗地獄
+    setTimeout(() => {
+      let popupCount = 0;
       
-      // 停止後等 1.5 秒，彈出最終確認框 (覆蓋全螢幕中心)
-      setTimeout(() => {
-        finalQuestion.classList.remove('hidden');
-      }, 1500);
-      return;
-    }
+      const spamInterval = setInterval(() => {
+        if (popupCount > 35) {
+          clearInterval(spamInterval);
+          // 滿屏彈窗結束後，顯示最終選擇題
+          setTimeout(() => {
+            finalQuestion.classList.remove('hidden');
+          }, 1500);
+          return;
+        }
 
-    // 隨機文字與隨機座標
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    // 讓視窗不會超出螢幕邊緣 (預留 300px 寬度)
-    const maxLeft = window.innerWidth - 300; 
-    const maxTop = window.innerHeight - 150;
-    const randomLeft = Math.random() * maxLeft;
-    const randomTop = Math.random() * maxTop;
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        const maxLeft = window.innerWidth - 300; 
+        const maxTop = window.innerHeight - 150;
+        const randomLeft = Math.random() * maxLeft;
+        const randomTop = Math.random() * maxTop;
 
-    createOSWindow("求原諒通知", randomMsg, randomLeft, randomTop, false);
-    popupCount++;
-  }, 150); 
+        createOSWindow("求原諒通知", randomMsg, randomLeft, randomTop, false);
+        popupCount++;
+      }, 150);
+    }, 800);
+
+  }, 2050); // 2050 毫秒 = 2秒動畫 + 50ms緩衝
 }
 
 // 建立虛擬 Windows 視窗的共用函數

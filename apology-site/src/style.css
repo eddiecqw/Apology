@@ -426,3 +426,22 @@ body {
   75% { transform: translate(3px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -1px) rotate(0deg); }
 }
+
+/* --- 復古加載進度條樣式 --- */
+.progress-container {
+  width: 100%;
+  height: 20px;
+  border: 2px solid #888;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  background: #e6e6e6;
+  margin-top: 15px;
+  padding: 2px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #000080; /* 經典 Windows 藍色 */
+  width: 0%;
+  transition: width 2s linear; /* 關鍵：2秒鐘的平滑加載動畫 */
+}

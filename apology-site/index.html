@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>給寶寶的道歉信</title>
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+  <body>
+    <div id="app">
+      
+      <!-- 第一頁：開場 (Landing Page) -->
+      <section id="page1" class="page active">
+        <div class="content-wrapper">
+          <img class="main-gif" src="https://media.giphy.com/media/3o7aD2saalEvTehEXe/giphy.gif" alt="道歉小熊">
+          <p class="subtitle">致我最愛的寶寶...</p>
+          <button id="startBtn" class="btn pulse-btn">Start</button>
+        </div>
+      </section>
+
+      <!-- 第二頁：Windows 彈窗地獄 -->
+      <section id="page2" class="page next-page">
+        <!-- 裝載彈窗的容器 -->
+        <div id="window-container"></div>
+        
+        <!-- 最終的選擇題 (預設隱藏，時間到了才跳出覆蓋全場) -->
+        <div id="finalQuestion" class="os-window final-window hidden">
+          <div class="os-header">
+            <span>⚠️ 最終確認.exe</span>
+          </div>
+          <div class="os-body">
+            <h3>妳願意原諒我嗎？🥺</h3>
+            <div class="button-group">
+              <button id="btnYes" class="os-btn">是 ❤️</button>
+              <button id="btnReluctant" class="os-btn shaky-btn">是，但是很不情願 😒</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第三頁：大結局 (大和解) -->
+      <section id="page3" class="page next-page">
+        <div class="content-wrapper">
+          <img class="main-gif" src="https://media.giphy.com/media/xT0GqFjM8NfVnLhVqU/giphy.gif" alt="開心抱抱">
+          <h2>太好啦！！！🎉</h2>
+          <p>我就知道寶寶最好了！<br>快去換衣服，晚上帶妳去吃好吃的當作賠罪！❤️</p>
+        </div>
+      </section>
+
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
